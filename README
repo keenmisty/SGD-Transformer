@@ -1,0 +1,28 @@
+# ---------------------------------------------------------------------------
+#
+# SGD-Transformer
+# 
+# Created on 2015-12-29 by Ming Chang,
+# PhD student of Prof. Xuemei Wang at Sun Yet-sen University
+# 
+# ---------------------------------------------------------------------------
+
+  This is a program to project your raster data to WGS1984, 
+  reclassify to USGS 24-class and convert your data into 
+  the MM5/WRF geogrid binary format.
+  
+  Notes:
+  You need cshell, GDAL and Python to be your environment.
+  An ArcPy version will come soon.
+
+  Before run this program, you need to define something in the head
+  of run_me file.
+
+  After the modify work, ./run_me and find your result in output/
+  
+  A file named 00001-<NX>.00001-<NY> is created, where <NX> is the 
+  argument nx and <NY> is the argument ny, both in i5.5 format.
+  And a index file would created in the same place.
+  
+  Suggestions, comments, and corrections are welcome!
+  Please mail to changm3@mail2.sysu.edu.cn.
