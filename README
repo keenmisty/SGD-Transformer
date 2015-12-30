@@ -23,6 +23,10 @@
   A file named 00001-<NX>.00001-<NY> is created, where <NX> is the 
   argument nx and <NY> is the argument ny, both in i5.5 format.
   And a index file would created in the same place.
-  
-  Suggestions, comments, and corrections are welcome!
-  Please mail to changm3@mail2.sysu.edu.cn.
+
+# ---------------------------------------------------------------------------  
+#  
+#  Suggestions, comments, and corrections are welcome!
+#  Please mail to changm3@mail2.sysu.edu.cn.
+#
+# ---------------------------------------------------------------------------
