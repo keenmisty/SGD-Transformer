@@ -1,0 +1,129 @@
+#! /bin/csh -f
+
+# *********************************************************************************
+# 
+# Please change the input file name and project file name.
+# If your input data is a shpfile, please convert it to a raster data.
+#
+# If you need to reclassify your data, please change the NEEDRECLASS to 1,
+# check the reclassify.py and change the old-new classes due to your work.
+#  
+# **************************** User Define Area: **********************************
+
+  set INPUTPATH    = './input'
+  set INPUTFILE    = 'example.tif'
+  set INPUTPROJ    = 'example.prj'
+  set NEEDRECLASS  = 0
+
+# *********************************************************************************
+
+  
+  ln -s src/* .
+
+  rm output/*
+
+  cd $INPUTPATH
+
+  if ( -e $INPUTFILE ) then
+     echo 'Got input data!'
+  else
+     echo 'ERROR! Please move tiff file in this path to input data!'
+     exit 
+  endif
+
+
+  gdalinfo $INPUTFILE >& tif_info.log
+
+  set ret=`grep -c 'WGS_1984' tif_info.log`
+  if ( $ret > 0 ) then
+     echo 'Got project WGS_1984.'
+     ln -s $INPUTFILE filename_wgs84.tif
+  else
+     echo 'Projection works...'
+     if ( -e $INPUTPROJ ) then
+        gdalwarp -s_srs $INPUTPROJ -t_srs EPSG:4326 $INPUTFILE filename_wgs84.tif
+     else
+        echo 'ERROR! Lost input project file!'
+        exit
+     endif
+  endif
+  echo 'Projection done.'
+
+  if ( $NEEDRECLASS > 0 ) then
+     echo 'Reclassify to USGS 24-class...'
+     python ../reclassify.py filename_wgs84.tif f_wgs84_USGS.tif
+  else
+     echo 'Already USGS 24-class.'
+     ln -s filename_wgs84.tif f_wgs84_USGS.tif
+  endif
+
+  echo 'Convert tif to ascii file...'
+  gdal_translate -of "AAIGRid" f_wgs84_USGS.tif asciidata.asc
+  echo 'Convert ascii file done.'
+
+
+  cd ../
+  ln -s $INPUTPATH/asciidata.asc .
+
+  make >& compile.log 
+  set ret=`grep -c -i 'error' compile.log`
+  if ( $ret < 1 ) then
+     echo 'Convert ascii to binary...Please wait a minute.'
+  else
+     echo 'Compile transform error'
+     exit
+  endif
+
+  mv a.out write.exe
+  ./write.exe
+  echo 'Convert ascii to binary done.'
+  mv 00* output/
+
+  head -6 asciidata.asc >& title.log
+  echo 'Make a index file...'
+  set NCOL_X=`grep 'ncols' title.log | awk '{print $2}'`
+  set NROW_Y=`grep 'nrows' title.log | awk '{print $2}'`
+  set LON_XC=`grep 'xllcorner' title.log | awk '{print $2}'`
+  set LAT_YC=`grep 'yllcorner' title.log | awk '{print $2}'`
+  set NODATA=`grep 'NODATA_value' title.log | awk '{print $2}'`
+  set CELLSZ=`grep 'cellsize' title.log | awk '{print $2}'`
+
+cat > tmp.mif <<EOF
+type=categorical
+category_min=1
+category_max=24
+projection=regular_ll
+dx=$CELLSZ
+dy=$CELLSZ
+known_x=1.0
+known_y=1.0
+known_lat = $LAT_YC
+known_lon = $LON_XC
+wordsize=1
+tile_x=$NCOL_X
+tile_y=$NROW_Y
+tile_z=1
+missing_value = $NODATA
+units="category"
+description="24-category USGS landuse-modify by changm3@SYSU"
+EOF
+
+  mv tmp.mif index
+  echo 'The data is start from'
+  echo $LON_XC $LAT_YC
+  echo 'The cellsize is'
+  echo $CELLSZ  
+  mv index output/
+
+
+  make clean >& clean.log
+  rm *.log $INPUTPATH/*.log
+  rm *.asc $INPUTPATH/asciidata.* 
+  rm $INPUTPATH/filename_wgs84.tif $INPUTPATH/f_wgs84_USGS.tif
+  rm osgeo wpsingest.F Makefile reclassify.py write_geogrid.c 
+
+  echo '******************************************************'
+  echo 'All Done!'
+  echo '******************************************************'
+
+  exit 0
