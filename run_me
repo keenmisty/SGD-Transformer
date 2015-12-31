@@ -1,6 +1,6 @@
 #! /bin/csh -f
 
-# *********************************************************************************
+# *****************************************************************************
 # 
 # Please change the input file name and project file name.
 # If your input data is a shpfile, please convert it to a raster data.
