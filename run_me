@@ -8,14 +8,14 @@
 # If you need to reclassify your data, please change the NEEDRECLASS to 1,
 # check the reclassify.py and change the old-new classes due to your work.
 #  
-# **************************** User Define Area: **********************************
+# **************************** User Define Area: ******************************
 
   set INPUTPATH    = './input'
   set INPUTFILE    = 'example.tif'
   set INPUTPROJ    = 'example.prj'
   set NEEDRECLASS  = 0
 
-# *********************************************************************************
+# *****************************************************************************
 
   
   ln -s src/* .
