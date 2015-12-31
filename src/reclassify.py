@@ -3,6 +3,9 @@ import numpy
 import math
 import sys
 
+# This is a python script to reclassify the data. 
+# Need supplied by GDAL and numPy.
+
 def reclassify(source,output):
     src_ds = gdal.Open(source)
     data = src_ds.ReadAsArray(0,0,src_ds.RasterXSize,src_ds.RasterYSize)
