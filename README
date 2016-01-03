@@ -7,7 +7,7 @@
 # 
 # ---------------------------------------------------------------------------
 
-  This is a program to project your raster data to WGS1984, 
+  This is a program to project your GeoTiff data to WGS1984, 
   reclassify to USGS 24-class and convert your data into 
   the MM5/WRF geogrid binary format.
   
