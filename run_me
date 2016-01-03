@@ -1,6 +1,6 @@
 #! /bin/csh -f
 
-# *****************************************************************************
+#******************************************************************************
 # 
 # Please change the input file name and project file name.
 # If your input data is a shpfile, please convert it to a raster data.
@@ -8,16 +8,29 @@
 # If you need to reclassify your data, please change the NEEDRECLASS to 1,
 # check the reclassify.py and change the old-new classes due to your work.
 #  
-# **************************** User Define Area: ******************************
+#***************************** User Define Area: ******************************
 
   set INPUTPATH    = './input'
   set INPUTFILE    = 'example.tif'
   set INPUTPROJ    = 'example.prj'
   set NEEDRECLASS  = 0
 
-# *****************************************************************************
+#******************************************************************************
+#
+# Program Processes:
+#
+# 1. Check the inputs.
+# 2. Change projection.
+# 3. Reclassify to USGS 24-class.
+# 4. Convert geotiff to ascii format.
+# 5. Convert ascii to geogrid binary format.
+# 6. Make a index file.
+# 7. Clean intermediate files.
+# 8. Echo all done.
+#
+#******************************************************************************
 
-  
+
   ln -s src/* .
 
   rm output/*
