@@ -20,13 +20,14 @@
 # Program Processes:
 #
 # 1. Check the inputs.
-# 2. Change projection.
-# 3. Reclassify to USGS 24-class.
-# 4. Convert geotiff to ascii format.
-# 5. Convert ascii to geogrid binary format.
-# 6. Make a index file.
-# 7. Clean intermediate files.
-# 8. Echo all done.
+# 2. Check the environments.
+# 3. Change projection.
+# 4. Reclassify to USGS 24-class.
+# 5. Convert geotiff to ascii format.
+# 6. Convert ascii to geogrid binary format.
+# 7. Make a index file.
+# 8. Clean intermediate files.
+# 9. Echo all done.
 #
 #******************************************************************************
 
@@ -43,6 +44,7 @@
      echo 'ERROR! Please move tiff file in this path to input data!'
      exit 
   endif
+  
 
 
   gdalinfo $INPUTFILE >& tif_info.log
