@@ -35,9 +35,6 @@
 #******************************************************************************
 
   make clean >& clean.log
-  rm *.log $INPUTPATH/*.log
-  rm *.asc $INPUTPATH/asciidata.*
-  rm $INPUTPATH/filename_wgs84.tif $INPUTPATH/f_wgs84_USGS.tif
   find . -type l -delete
 
   ln -s src/* .
