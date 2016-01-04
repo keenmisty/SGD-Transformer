@@ -7,7 +7,41 @@ import numpy as np
 import operator
 gdal.AllRegister()
 
-
+#
+# Usage
+#
+# gdal_reclassify.py [-c source_classes] [-r dest_classes] [-d default] [-n default_as_nodata] src_dataset dst_dataset
+#
+# -c: 
+#    Input classes as a comma-delimited string of value conditions that are to be reclassified.
+#
+# -r: 
+#     Output classes as a comma-delimited string of values. 
+#     The number of input classes must match the number of result values. 
+#     The order of the output classes must match the order of the input classes. 
+#     The output data type will match the datatype of the output classes.
+#
+# -d:
+#     Default value. 
+#     Value used to fill pixels that do not meet any conditions of the input classes. 
+#     If no default value is specified, the default will be 0.
+#
+# -n:
+#     No data. 
+#     Setting to "true" sets the default value as the nodata value. 
+#     If not set to "true" GDAL will determine the nodata value based on the ouput data type.
+#
+# -p:
+#     GDAL compression method. 
+#     Examples:'COMPRESS=LZW','COMPRESS=PACKBITS','COMPRESS=DEFLATE' or 'COMPRESS=JPEG'. 
+#     By default gdal_reclassfiy uses no compression. 
+#     More information on compression can be found here: http://gis.stackexchange.com/a/1105/4701.
+#
+# src_dataset:
+#     The source file name.
+# dst_dataset:
+#     The destination tiff file name.
+#
 
 def getIntType(array_of_numbers):
     low, high = min(array_of_numbers), max(array_of_numbers)
