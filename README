@@ -12,18 +12,23 @@
   the MM5/WRF geogrid binary format.
   
   Notes:
-  You need cshell, GDAL and Python to be your environment.
-  An ArcPy version will come soon.
-
+  "Csh, Python(with numpy) and GDAL(with python bindings)" are requirement.
+  Please check the environment of your computer first!
+  
   Before run this program, you need to define something in the head
-  of run_me file.
+  of the "run_me" file.
 
-  After the modify work, ./run_me and find your result in output/
+  After the modify work, ./run_me and find result in output/
   
   A file named 00001-<NX>.00001-<NY> is created, where <NX> is the 
   argument nx and <NY> is the argument ny, both in i5.5 format.
   And a index file would created in the same place.
 
+  Creat a new folder under geog path and copy these two output things inside.
+  Add the rel_path(the folder name) and interp_option into your WPS/geogrid/GEOGRID.TBL 
+  Then you can calling your modified datasets in your namelist.wps.
+
+  Have fun!
 # ---------------------------------------------------------------------------  
 #  
 #  Suggestions, comments, and corrections are welcome!
