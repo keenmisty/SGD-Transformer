@@ -66,7 +66,14 @@
 
   if ( $NEEDRECLASS > 0 ) then
      echo 'Reclassify to USGS 24-class...'
-     python ../reclassify.py filename_wgs84.tif f_wgs84_USGS.tif
+     python ../reclassify.py filename_wgs84.tif f_wgs84_USGS.tif >& reclassify.log
+     set rec=`grep -c -i 'error' reclassify.log`
+     if ( $rec < 1 ) then
+     	echo 'Reclassing...'
+     else
+     	echo 'Reclass error'
+	exit
+     endif
   else
      echo 'Already USGS 24-class.'
      ln -s filename_wgs84.tif f_wgs84_USGS.tif
