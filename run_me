@@ -1,15 +1,15 @@
 #! /bin/csh -f
 
-#******************************************************************************
+#------------------------------------------------------------------------------
 # 
 # Please change the input file name and project file name.
 # If your input data is a shpfile, please convert it to a raster data.
 #
 # If you need to reclassify your data, please change the NEEDRECLASS to 1,
-# and modify the inputclass&outputclass, make sure they are one to one.
-# The outputclass should from 1 to 24. The nodata would be set to 16(waterbody).
+# and modify the inputclass & outputclass, make sure they are one to one.
+# The outputclass should be 1~24. The nodata would be set to 16(waterbody).
 #  
-#***************************** User Define Area: ******************************
+#----------------------------- User Define Area: ------------------------------
 
   set INPUTPATH    = './input'
   set INPUTFILE    = 'example.tif'
@@ -18,7 +18,36 @@
   set INPUTCLASS   = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24"
   set OUTPUTCLASS  = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24"
 
-#******************************************************************************
+#------------------------------------------------------------------------------
+#
+# Output USGS 24-CLASS:
+#
+# 1,     'Urban and Built-Up Land'
+# 2,     'Dryland Cropland and Pasture'
+# 3,     'Irrigated Cropland and Pasture'
+# 4,     'Mixed Dryland/Irrigated Cropland and Pasture'
+# 5,     'Cropland/Grassland Mosaic'
+# 6,     'Cropland/Woodland Mosaic'
+# 7,     'Grassland'
+# 8,     'Shrubland'
+# 9,     'Mixed Shrubland/Grassland'
+# 10,    'Savanna'
+# 11,    'Deciduous Broadleaf Forest'
+# 12,    'Deciduous Needleleaf Forest'
+# 13,    'Evergreen Broadleaf Forest'
+# 14,    'Evergreen Needleleaf Forest'
+# 15,    'Mixed Forest'
+# 16,    'Water Bodies'
+# 17,    'Herbaceous Wetland'
+# 18,    'Wooded Wetland'
+# 19,    'Barren or Sparsely Vegetated'
+# 20,    'Herbaceous Tundra'
+# 21,    'Wooded Tundra'
+# 22,    'Mixed Tundra'
+# 23,    'Bare Ground Tundra'
+# 24,    'Snow or Ice'
+#
+#------------------------------------------------------------------------------
 #
 # Program Processes:
 #
@@ -32,10 +61,13 @@
 # 8. Clean intermediate files.
 # 9. Echo all done.
 #
-#******************************************************************************
+#------------------------------------------------------------------------------
 
   make clean >& clean.log
+  rm *.asc $INPUTPATH/asciidata.* >& rm.log
+  rm $INPUTPATH/filename_wgs84.tif $INPUTPATH/f_wgs84_USGS.tif >& rm/log
   find . -type l -delete
+  rm *.log $INPUTPATH/*.log
 
   ln -s src/* .
 
@@ -71,7 +103,6 @@
 
   if ( $NEEDRECLASS > 0 ) then
      echo 'Reclassify to USGS 24-class...'
-#     python ../reclassify.py filename_wgs84.tif f_wgs84_USGS.tif >& reclassify.log
      python ../gdal_reclassify.py filename_wgs84.tif f_wgs84_USGS.tif -c $INPUTCLASS -r $OUTPUTCLASS -d 16 -n false >& reclassify.log
      set rec=`grep -c -i 'error' reclassify.log`
      if ( $rec < 1 ) then
