@@ -65,7 +65,7 @@
 
   make clean >& clean.log
   rm *.asc $INPUTPATH/asciidata.* >& rm.log
-  rm $INPUTPATH/filename_wgs84.tif $INPUTPATH/f_wgs84_USGS.tif >& rm/log
+  rm $INPUTPATH/filename_wgs84.tif $INPUTPATH/f_wgs84_USGS.tif >& rm.log
   find . -type l -delete
   rm *.log $INPUTPATH/*.log
 
