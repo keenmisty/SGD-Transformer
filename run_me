@@ -108,7 +108,7 @@
      if ( $rec < 1 ) then
      	echo 'Reclassing...'
      else
-     	echo 'Reclass error'
+     	echo 'Reclass error!'
 	exit
      endif
   else
@@ -129,7 +129,7 @@
   if ( $ret < 1 ) then
      echo 'Convert ascii to binary...Please wait a minute.'
   else
-     echo 'Compile transform error'
+     echo 'Compile transform error!'
      exit
   endif
 
@@ -168,9 +168,9 @@ description="24-category USGS landuse-modify by changm3@SYSU"
 EOF
 
   mv tmp.mif index
-  echo 'The data is start from'
+  echo 'The data is start from:'
   echo $LON_XC $LAT_YC
-  echo 'The cellsize is'
+  echo 'The cellsize is:'
   echo $CELLSZ  
   mv index output/
 
