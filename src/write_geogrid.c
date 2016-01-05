@@ -10,7 +10,6 @@
    the write_geogrid() routine may need to be adjusted with respect
    to the number of trailing underscores when calling from Fortran.
 
-   Michael G. Duda, NCAR/MMM
 */
 
 #include <stdlib.h>
