@@ -1,4 +1,4 @@
-program geogrid_clc
+program geogrid_change_data
 implicit none
 
 integer :: i,j
