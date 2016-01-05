@@ -12,7 +12,7 @@
   the MM5/WRF geogrid binary format.
   
   Notes:
-  "Csh, Python(with NumPy) and GDAL(with python bindings)" are requirement.
+  "Csh, Python(with NumPy) and GDAL(with Python bindings)" are requirement.
   Please check the environment of your computer first!
   
   Before run this program, you need to define something in the head
@@ -29,6 +29,7 @@
   Then you can calling your modified datasets in your namelist.wps.
 
   Have fun!
+
 # ---------------------------------------------------------------------------  
 #  
 #  Suggestions, comments, and corrections are welcome!
