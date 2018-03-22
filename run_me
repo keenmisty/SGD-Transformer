@@ -8,7 +8,8 @@
 # If you need to reclassify your data, please change the NEEDRECLASS to 1,
 # and modify the inputclass & outputclass, make sure they are one to one.
 # The outputclass should be 1~24. The nodata would be set to 16(waterbody).
-#  
+# 
+# Notice: the input classes should not large than 30
 #----------------------------- User Define Area: ------------------------------
 
   set INPUTPATH    = './input'
